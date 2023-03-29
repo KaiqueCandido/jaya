@@ -14,6 +14,10 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: true
+  # MVC configuration
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 # Server configuration
 server:
   error:
@@ -25,3 +29,7 @@ feign:
       name: exchange-rate
       url: https://api.apilayer.com
       api-key: ${FEIGN_CLIENT_EXCHANGE_RATE_APIKEY}
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: '/'

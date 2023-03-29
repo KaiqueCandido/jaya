@@ -46,13 +46,36 @@ class WebSecurityConfig {
 
     @Bean
     fun apiFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http.csrf().disable()
-            .authorizeHttpRequests().anyRequest().authenticated()
-            .and().httpBasic()
+        http.csrf()
+            .disable()
+            .authorizeHttpRequests { requests ->
+                requests
+                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .anyRequest()
+                    .authenticated()
+            }
+            .httpBasic()
             .and().headers().frameOptions().sameOrigin()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         return http.build()
+    }
+
+    companion object {
+        var AUTH_WHITELIST = arrayOf(
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/api/public/**",
+            "/api/public/authenticate",
+            "/actuator/*",
+            "/swagger-ui/**",
+            "/h2-console/**",
+        )
     }
 }

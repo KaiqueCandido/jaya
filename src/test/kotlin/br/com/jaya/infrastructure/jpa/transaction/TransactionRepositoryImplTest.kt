@@ -27,6 +27,7 @@ class TransactionRepositoryImplTest {
                 BigDecimal("5.598672"),
                 LocalDateTime.now()
         )
+        val createdAtMock = LocalDateTime.now()
         val transactionEntityOutputMock = TransactionEntity(
                 1,
                 1,
@@ -34,7 +35,7 @@ class TransactionRepositoryImplTest {
                 BigDecimal.valueOf(20),
                 CurrencyType.BRL,
                 BigDecimal("5.598672"),
-                LocalDateTime.now()
+                createdAtMock
         )
         every { transactionPersistence.save(transactionEntityInputMock) } returns transactionEntityOutputMock
 
@@ -46,6 +47,10 @@ class TransactionRepositoryImplTest {
         assertEquals(transactionEntityOutputMock.sourceCurrency, result.sourceCurrency)
         assertEquals(transactionEntityOutputMock.destinationCurrency, result.destinationCurrency)
         assertEquals(transactionEntityOutputMock.id, 1)
+        assertEquals(transactionEntityOutputMock.userId, 1)
+        assertEquals(transactionEntityOutputMock.sourceValue, BigDecimal.valueOf(20))
+        assertEquals(transactionEntityOutputMock.conversionRate, BigDecimal("5.598672"))
+        assertEquals(transactionEntityOutputMock.createdAt, createdAtMock)
     }
 
     @Test

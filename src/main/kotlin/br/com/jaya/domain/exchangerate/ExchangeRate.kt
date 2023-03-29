@@ -11,4 +11,8 @@ class ExchangeRate (
     val rates: Map<CurrencyType, BigDecimal>,
     val success: Boolean,
     val timestamp: Timestamp
-)
+) {
+    override fun toString(): String {
+        return "ExchangeRate(base=$base, date=$date, rates=$rates, success=$success, timestamp=$timestamp)"
+    }
+}

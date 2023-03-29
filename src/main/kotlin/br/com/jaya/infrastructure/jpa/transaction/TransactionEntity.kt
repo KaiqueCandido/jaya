@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 class TransactionEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long?,
+        var id: Long?,
         @Column(name = "user_id")
         val userId: Long,
         @Column(name = "source_currency")

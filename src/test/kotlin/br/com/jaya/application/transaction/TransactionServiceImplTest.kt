@@ -88,7 +88,7 @@ class TransactionServiceImplTest {
     }
 
     @Test
-    fun getByUserId() {
+    fun should_return_list_of_transaction_when_find_by_id_with_success() {
         //given
         val transactionsMock = listOf(
                 Transaction(

@@ -7,5 +7,4 @@ interface TransactionRepository {
     fun save(transactionEntity: TransactionEntity): Transaction
 
     fun getByUserId(userId: Long): List<Transaction>
-
 }

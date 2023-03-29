@@ -20,10 +20,12 @@ class WebSecurityConfig {
     @Bean
     fun userDetailsService(bCryptPasswordEncoder: BCryptPasswordEncoder): UserDetailsService {
         val manager = InMemoryUserDetailsManager()
-        manager.createUser(User.withUsername("user")
+        manager.createUser(
+            User.withUsername("user")
                 .password(bCryptPasswordEncoder.encode("password"))
                 .roles("USER")
-                .build())
+                .build(),
+        )
         return manager
     }
 
@@ -31,10 +33,10 @@ class WebSecurityConfig {
     @Throws(Exception::class)
     fun authenticationManager(http: HttpSecurity, bCryptPasswordEncoder: BCryptPasswordEncoder?, userDetailsService: UserDetailsService): AuthenticationManager? {
         return http.getSharedObject(AuthenticationManagerBuilder::class.java)
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .build()
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(bCryptPasswordEncoder)
+            .and()
+            .build()
     }
 
     @Bean
@@ -45,12 +47,12 @@ class WebSecurityConfig {
     @Bean
     fun apiFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf().disable()
-                .authorizeHttpRequests().anyRequest().authenticated()
-                .and().httpBasic()
-                .and().headers().frameOptions().sameOrigin()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .authorizeHttpRequests().anyRequest().authenticated()
+            .and().httpBasic()
+            .and().headers().frameOptions().sameOrigin()
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         return http.build()
     }
 }

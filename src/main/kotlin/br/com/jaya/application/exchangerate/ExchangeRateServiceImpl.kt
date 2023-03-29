@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class ExchangeRateServiceImpl(
-        private val exchangeRateRepository: ExchangeRateRepository
+    private val exchangeRateRepository: ExchangeRateRepository,
 ) : ExchangeRateService {
 
     override fun getExchangeRatesDataLatest(base: CurrencyType, symbol: CurrencyType): ExchangeRate {
         return exchangeRateRepository.getExchangeRatesDataLatest(base, symbol)
     }
-
 }

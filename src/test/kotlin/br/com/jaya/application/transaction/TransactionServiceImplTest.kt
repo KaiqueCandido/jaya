@@ -9,9 +9,9 @@ import br.com.jaya.domain.transaction.TransactionRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import java.math.BigDecimal
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -25,32 +25,32 @@ class TransactionServiceImplTest {
 
     @Test
     fun should_return_transaction_when_saved_with_success() {
-        //given
+        // given
         val createdAtMock = LocalDateTime.now()
         val transactionMock = Transaction(
-                1,
-                1,
-                CurrencyType.EUR,
-                BigDecimal.valueOf(20),
-                CurrencyType.BRL,
-                BigDecimal("5.598672"),
-                createdAtMock
+            1,
+            1,
+            CurrencyType.EUR,
+            BigDecimal.valueOf(20),
+            CurrencyType.BRL,
+            BigDecimal("5.598672"),
+            createdAtMock,
         )
         every { transactionRepository.save(any()) } returns transactionMock
 
         val exchangeRateMock = ExchangeRate(
-                CurrencyType.EUR,
-                LocalDate.now(),
-                mapOf(CurrencyType.BRL to BigDecimal("5.598672")),
-                true,
-                Timestamp(System.currentTimeMillis())
+            CurrencyType.EUR,
+            LocalDate.now(),
+            mapOf(CurrencyType.BRL to BigDecimal("5.598672")),
+            true,
+            Timestamp(System.currentTimeMillis()),
         )
         every { exchangeRateService.getExchangeRatesDataLatest(transactionMock.sourceCurrency, transactionMock.destinationCurrency) } returns exchangeRateMock
 
-        //when
+        // when
         val result = transactionService.save(transactionMock)
 
-        //then
+        // then
         verify(exactly = 1) { transactionRepository.save(any()) }
         verify(exactly = 1) { exchangeRateService.getExchangeRatesDataLatest(transactionMock.sourceCurrency, transactionMock.destinationCurrency) }
         assertEquals(transactionMock, result)
@@ -58,29 +58,29 @@ class TransactionServiceImplTest {
 
     @Test
     fun should_return_exchangeRateNotFoundException_when_exchange_rate_not_found() {
-        //given
+        // given
         val createdAtMock = LocalDateTime.now()
         val transactionMock = Transaction(
-                1,
-                1,
-                CurrencyType.EUR,
-                BigDecimal.valueOf(20),
-                CurrencyType.BRL,
-                BigDecimal("5.598672"),
-                createdAtMock
+            1,
+            1,
+            CurrencyType.EUR,
+            BigDecimal.valueOf(20),
+            CurrencyType.BRL,
+            BigDecimal("5.598672"),
+            createdAtMock,
         )
         every { transactionRepository.save(any()) } returns transactionMock
 
         val exchangeRateMock = ExchangeRate(
-                CurrencyType.EUR,
-                LocalDate.now(),
-                mapOf(CurrencyType.USD to BigDecimal("5.598672")),
-                true,
-                Timestamp(System.currentTimeMillis())
+            CurrencyType.EUR,
+            LocalDate.now(),
+            mapOf(CurrencyType.USD to BigDecimal("5.598672")),
+            true,
+            Timestamp(System.currentTimeMillis()),
         )
         every { exchangeRateService.getExchangeRatesDataLatest(transactionMock.sourceCurrency, transactionMock.destinationCurrency) } returns exchangeRateMock
 
-        //then
+        // then
         val exception = assertThrows(ExchangeRateNotFoundException::class.java) {
             transactionService.save(transactionMock)
         }
@@ -89,24 +89,24 @@ class TransactionServiceImplTest {
 
     @Test
     fun should_return_list_of_transaction_when_find_by_id_with_success() {
-        //given
+        // given
         val transactionsMock = listOf(
-                Transaction(
-                        1,
-                        1,
-                        CurrencyType.EUR,
-                        BigDecimal.valueOf(10),
-                        CurrencyType.BRL,
-                        BigDecimal.valueOf(56),
-                        LocalDateTime.now()
-                )
+            Transaction(
+                1,
+                1,
+                CurrencyType.EUR,
+                BigDecimal.valueOf(10),
+                CurrencyType.BRL,
+                BigDecimal.valueOf(56),
+                LocalDateTime.now(),
+            ),
         )
         every { transactionRepository.getByUserId(1) } returns transactionsMock
 
-        //when
+        // when
         val result = transactionService.getByUserId(1)
 
-        //then
+        // then
         verify(exactly = 1) { transactionRepository.getByUserId(1) }
         assertEquals(transactionsMock, result)
     }

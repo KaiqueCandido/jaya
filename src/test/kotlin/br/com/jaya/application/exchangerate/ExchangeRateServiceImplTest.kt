@@ -19,22 +19,22 @@ class ExchangeRateServiceImplTest {
 
     @Test
     fun should_return_exchange_rates_latest_with_success() {
-        //given
+        // given
         val exchangeRateMock = ExchangeRate(
-                CurrencyType.EUR,
-                LocalDate.now(),
-                mapOf(CurrencyType.BRL to BigDecimal("5.598672")),
-                true,
-                Timestamp(System.currentTimeMillis())
+            CurrencyType.EUR,
+            LocalDate.now(),
+            mapOf(CurrencyType.BRL to BigDecimal("5.598672")),
+            true,
+            Timestamp(System.currentTimeMillis()),
         )
         every {
             exchangeRateRepository.getExchangeRatesDataLatest(CurrencyType.EUR, CurrencyType.USD)
         } returns exchangeRateMock
 
-        //when
+        // when
         val result = exchangeRateService.getExchangeRatesDataLatest(CurrencyType.EUR, CurrencyType.USD)
 
-        //then
+        // then
         verify(exactly = 1) { exchangeRateRepository.getExchangeRatesDataLatest(CurrencyType.EUR, CurrencyType.USD) }
         Assertions.assertEquals(exchangeRateMock, result)
     }

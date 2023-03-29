@@ -5,5 +5,4 @@ import br.com.jaya.domain.transaction.CurrencyType
 interface ExchangeRateService {
 
     fun getExchangeRatesDataLatest(base: CurrencyType, symbol: CurrencyType): ExchangeRate
-
 }

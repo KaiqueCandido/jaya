@@ -7,37 +7,37 @@ import java.math.RoundingMode
 import java.time.LocalDateTime
 
 class Transaction(
-        private val id: Long?,
-        private val userId: Long,
-        val sourceCurrency: CurrencyType,
-        private val sourceValue: BigDecimal,
-        val destinationCurrency: CurrencyType,
-        var conversionRate: BigDecimal?,
-        private val createdAt: LocalDateTime
+    private val id: Long?,
+    private val userId: Long,
+    val sourceCurrency: CurrencyType,
+    private val sourceValue: BigDecimal,
+    val destinationCurrency: CurrencyType,
+    var conversionRate: BigDecimal?,
+    private val createdAt: LocalDateTime,
 ) {
 
     fun toEntity(): TransactionEntity {
         return TransactionEntity(
-                id,
-                userId,
-                sourceCurrency,
-                sourceValue,
-                destinationCurrency,
-                conversionRate,
-                createdAt
+            id,
+            userId,
+            sourceCurrency,
+            sourceValue,
+            destinationCurrency,
+            conversionRate,
+            createdAt,
         )
     }
 
     fun toRepresentation(): TransactionRepresentation {
         return TransactionRepresentation(
-                id,
-                userId,
-                sourceCurrency,
-                sourceValue,
-                destinationCurrency,
-                sourceValue.multiply(conversionRate).setScale(SCALE, RoundingMode.DOWN),
-                conversionRate,
-                createdAt
+            id,
+            userId,
+            sourceCurrency,
+            sourceValue,
+            destinationCurrency,
+            sourceValue.multiply(conversionRate).setScale(SCALE, RoundingMode.DOWN),
+            conversionRate,
+            createdAt,
         )
     }
 

@@ -9,24 +9,22 @@ import org.springframework.stereotype.Service
 
 @Service
 class TransactionServiceImpl(
-        private val transactionRepository: TransactionRepository,
-        private val exchangeRateService: ExchangeRateService
+    private val transactionRepository: TransactionRepository,
+    private val exchangeRateService: ExchangeRateService,
 ) : TransactionService {
 
     override fun save(transaction: Transaction): Transaction {
-
         val exchangeRatesDataLatest = exchangeRateService.getExchangeRatesDataLatest(
-                transaction.sourceCurrency,
-                transaction.destinationCurrency
+            transaction.sourceCurrency,
+            transaction.destinationCurrency,
         )
         val rate = exchangeRatesDataLatest.rates[transaction.destinationCurrency]
-                ?: throw ExchangeRateNotFoundException("Last exchange rate not found: ${transaction.destinationCurrency}")
+            ?: throw ExchangeRateNotFoundException("Last exchange rate not found: ${transaction.destinationCurrency}")
         transaction.conversionRate = rate
         return transactionRepository.save(transaction.toEntity())
     }
 
     override fun getByUserId(userId: Long): List<Transaction> {
-        return transactionRepository.getByUserId(userId);
+        return transactionRepository.getByUserId(userId)
     }
-
 }

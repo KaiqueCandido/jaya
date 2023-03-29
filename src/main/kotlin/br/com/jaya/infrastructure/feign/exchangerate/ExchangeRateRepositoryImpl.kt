@@ -10,7 +10,7 @@ import java.lang.Exception
 
 @Repository
 class ExchangeRateRepositoryImpl(
-        private val exchangeRateClient: ExchangeRateClient
+    private val exchangeRateClient: ExchangeRateClient,
 ) : ExchangeRateRepository {
 
     @Value("\${feign.client.exchange-rate.api-key}")
@@ -23,5 +23,4 @@ class ExchangeRateRepositoryImpl(
             throw ExchangeRateIntegrationException("Integration error with exchangerates_data API")
         }
     }
-
 }

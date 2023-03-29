@@ -9,5 +9,5 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 class JayaApplication
 
 fun main(args: Array<String>) {
-	runApplication<JayaApplication>(*args)
+    runApplication<JayaApplication>(*args)
 }

@@ -5,12 +5,12 @@ import java.math.BigDecimal
 import java.sql.Timestamp
 import java.time.LocalDate
 
-class ExchangeRate (
+class ExchangeRate(
     val base: CurrencyType,
     val date: LocalDate,
     val rates: Map<CurrencyType, BigDecimal>,
     val success: Boolean,
-    val timestamp: Timestamp
+    val timestamp: Timestamp,
 ) {
     override fun toString(): String {
         return "ExchangeRate(base=$base, date=$date, rates=$rates, success=$success, timestamp=$timestamp)"

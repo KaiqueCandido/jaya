@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestParam
 
 @FeignClient(
-        name="\${feign.client.exchange-rate.name}",
-        url ="\${feign.client.exchange-rate.url}"
+    name = "\${feign.client.exchange-rate.name}",
+    url = "\${feign.client.exchange-rate.url}",
 )
 interface ExchangeRateClient {
 
     @GetMapping("exchangerates_data/latest")
     fun getExchangeRatesData(
-            @RequestHeader apikey: String,
-            @RequestParam base: CurrencyType,
-            @RequestParam symbols: CurrencyType
+        @RequestHeader apikey: String,
+        @RequestParam base: CurrencyType,
+        @RequestParam symbols: CurrencyType,
     ): ExchangeRateDTO
 }

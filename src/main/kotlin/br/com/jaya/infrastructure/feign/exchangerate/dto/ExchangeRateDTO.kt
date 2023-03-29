@@ -7,11 +7,11 @@ import java.sql.Timestamp
 import java.time.LocalDate
 
 class ExchangeRateDTO(
-        private val base: CurrencyType,
-        private val date: LocalDate,
-        private val rates: Map<CurrencyType, BigDecimal>,
-        private val success: Boolean,
-        private val timestamp: Timestamp
+    private val base: CurrencyType,
+    private val date: LocalDate,
+    private val rates: Map<CurrencyType, BigDecimal>,
+    private val success: Boolean,
+    private val timestamp: Timestamp,
 ) {
     fun toDomain(): ExchangeRate {
         return ExchangeRate(base, date, rates, success, timestamp)

@@ -5,12 +5,12 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 class TransactionRepresentation(
-        val transactionId: Long?,
-        val userId: Long,
-        val sourceCurrency: CurrencyType,
-        val sourceValue: BigDecimal,
-        val destinationCurrency: CurrencyType,
-        val destinationValue: BigDecimal,
-        val conversionRate: BigDecimal?,
-        val createdAt: LocalDateTime
+    val transactionId: Long?,
+    val userId: Long,
+    val sourceCurrency: CurrencyType,
+    val sourceValue: BigDecimal,
+    val destinationCurrency: CurrencyType,
+    val destinationValue: BigDecimal,
+    val conversionRate: BigDecimal?,
+    val createdAt: LocalDateTime,
 )

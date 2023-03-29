@@ -1,0 +1,27 @@
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+# Server configuration
+server:
+  error:
+    include-stacktrace: ON_PARAM
+# Feign configuration
+feign:
+  client:
+    exchange-rate:
+      name: exchange-rate
+      url: https://api.apilayer.com
+      api-key: ${FEIGN_CLIENT_EXCHANGE_RATE_APIKEY}

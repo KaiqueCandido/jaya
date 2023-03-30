@@ -50,7 +50,7 @@ class WebSecurityConfig {
             .disable()
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/swagger-ui/**", "/actuator/**").permitAll()
                     .anyRequest()
                     .authenticated()
             }

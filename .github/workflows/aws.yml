@@ -39,3 +39,5 @@ jobs:
           region: ${{ secrets.AWS_DEFAULT_REGION }}
           application_name: ${{ secrets.AWS_APPLICATION_NAME }}
           environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
+          version_label: 0.0.1
+          version_description: 'Jaya challenger'
